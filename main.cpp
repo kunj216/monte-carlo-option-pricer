@@ -78,8 +78,24 @@ std::vector<double> getTerminalPrices(const unsigned int numberOfPaths) {
     return output;
 }
 
-double blackScholesCall(const double currentPrice, const double strikePrice, const double riskFreeInterestRate, const double volatility, const double timeToExcercise) {
-    return 0;
+
+
+inline double zDistCDF(const double x) {
+    constexpr double SQRT_HALF = 0.70710678118654752440;
+    return 0.5 * std::erfc(-x * SQRT_HALF);
+}
+
+
+inline double blackScholesCall(const double currentPrice, const double strikePrice, const double riskFreeInterestRate, const double volatility, const double timeToExercise) {
+    const double d1 = (std::log(currentPrice/strikePrice)+timeToExercise*(riskFreeInterestRate + volatility*volatility/2)) / (volatility * std::sqrt(timeToExercise));
+    const double d2 = d1 - volatility*std::sqrt(timeToExercise);
+    return currentPrice*zDistCDF(d1) - strikePrice*std::exp(-riskFreeInterestRate*timeToExercise)*zDistCDF(d2);
+}
+
+inline double blackScholesPut(const double currentPrice, const double strikePrice, const double riskFreeInterestRate, const double volatility, const double timeToExercise) {
+    double d1 = (std::log(currentPrice/strikePrice)+timeToExercise*(riskFreeInterestRate + volatility*volatility/2)) / (volatility * std::sqrt(timeToExercise));
+    double d2 = d1 - volatility*std::sqrt(timeToExercise);
+    return strikePrice*std::exp(-riskFreeInterestRate*timeToExercise)*zDistCDF(-d2) - currentPrice*zDistCDF(-d1);
 }
 
 int main() {
