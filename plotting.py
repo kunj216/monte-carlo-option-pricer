@@ -1,12 +1,18 @@
 import matplotlib.pyplot as plt
 
-
+paths = []
 with open("/tmp/path.csv") as f:
-    line = f.read().strip()
-    prices = [float(x) for x in line.split(",")]
+    for line in f:
+        line = line.strip()
+        if not line:
+            continue
+        prices = [float(x) for x in line.split(",")]
+        paths.append(prices)
 
-plt.plot(prices)
+for prices in paths:
+    plt.plot(prices, linewidth=0.8, alpha=0.7)
+
 plt.xlabel("Time step")
 plt.ylabel("Price")
-plt.title("GBM Simulated Path")
+plt.title(f"GBM Simulated Paths (n={len(paths)})")
 plt.show()
