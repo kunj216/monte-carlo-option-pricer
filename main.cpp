@@ -5,6 +5,7 @@
 #include <future>
 
 double simulatePath(const double startingPrice, const double drift, const double volatility, const double intervalLength, const int numberOfSubIntervals, const unsigned seed, std::vector<double>* history = nullptr) {
+    //Remember to use future.get() before accessing history vector
     if (history != nullptr) {
         history -> reserve(numberOfSubIntervals+1);
         history -> push_back(startingPrice);
@@ -49,7 +50,7 @@ std::string getPriceHistories(const unsigned int numberOfPaths) {
 
     std::string output;
 
-    for (int i = 0; i < numberOfPaths; ++i) {
+    for (unsigned int i = 0; i < numberOfPaths; ++i) {
         futures[i].get();
         for (size_t j = 0; j < histories[i].size()-1; ++j) {
             const auto price = histories[i][j];
@@ -93,8 +94,8 @@ inline double blackScholesCall(const double currentPrice, const double strikePri
 }
 
 inline double blackScholesPut(const double currentPrice, const double strikePrice, const double riskFreeInterestRate, const double volatility, const double timeToExercise) {
-    double d1 = (std::log(currentPrice/strikePrice)+timeToExercise*(riskFreeInterestRate + volatility*volatility/2)) / (volatility * std::sqrt(timeToExercise));
-    double d2 = d1 - volatility*std::sqrt(timeToExercise);
+    const double d1 = (std::log(currentPrice/strikePrice)+timeToExercise*(riskFreeInterestRate + volatility*volatility/2)) / (volatility * std::sqrt(timeToExercise));
+    const double d2 = d1 - volatility*std::sqrt(timeToExercise);
     return strikePrice*std::exp(-riskFreeInterestRate*timeToExercise)*zDistCDF(-d2) - currentPrice*zDistCDF(-d1);
 }
 
