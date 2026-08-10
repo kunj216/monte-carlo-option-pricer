@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-with open("path.csv") as f:
+with open("/tmp/path.csv") as f:
     line = f.read().strip()
     prices = [float(x) for x in line.split(",")]
 

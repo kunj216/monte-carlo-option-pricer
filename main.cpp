@@ -2,11 +2,13 @@
 #include <ostream>
 #include <random>
 #include <vector>
-std::vector<double> simulate_GBM_path(const double startingPrice, const double drift, const double volatility, const double T, const int N, std::mt19937& randomNumberGenerator) {
+#include <future>
+std::vector<double> simulate_GBM_path(const double startingPrice, const double drift, const double volatility, const double T, const int N) {
     std::vector<double> path;
     path.reserve(N+1);
     path.push_back(startingPrice);
 
+    std::mt19937 randomNumberGenerator(std::random_device{}());
     std::normal_distribution<double> zDist(0,1);
 
     double Y = startingPrice;
@@ -22,8 +24,12 @@ std::vector<double> simulate_GBM_path(const double startingPrice, const double d
 }
 
 int main() {
-    std::mt19937 randomNumberGenerator(std::random_device{}());
-    const auto path = simulate_GBM_path(100, 0.05, 0.2, 1, 365, randomNumberGenerator);
+
+    std::future<std::vector<double>> future = std::async(std::launch::async, simulate_GBM_path, 100, 0.05, 0.2, 1, 365*24*60);
+
+    // const auto path = simulate_GBM_path(100, 0.05, 0.2, 1, 365*24*60);
+
+    auto path = future.get();
     for (uint i = 0; i < path.size()-1; ++i) {
         const auto price = path[i];
         std::cout << price << ",";
