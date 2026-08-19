@@ -67,7 +67,8 @@ namespace eulerMaryama {
         futures.reserve(numberOfPaths/2);
 
         for (int i = 0; i < numberOfPaths; i+=2) {
-            futures.push_back(std::async(std::launch::async, eulerMaryama::simulateAntitheticVariatePaths, startingPrice, drift, volatility,
+            futures.push_back(std::async(std::launch::async, eulerMaryama::simulateAntitheticVariatePaths,
+                startingPrice, drift, volatility,
                 intervalLength, numberOfSubIntervals, seeds[i], &histories[i], &histories[i+1]));
         }
 
@@ -129,7 +130,54 @@ namespace exactGBM {
 
     std::vector<std::vector<double>> getPriceHistories(unsigned int numberOfPaths, const double startingPrice, const double drift,
         const double volatility, const double intervalLength, const int numberOfSubIntervals) {
-        //Unfinished
+        if (numberOfPaths%2==1) numberOfPaths--; //Confiscate the extra path if someone has the gall to call this function with an odd number of paths
+        auto seeds = generateSeeds(numberOfPaths/2);
+
+        std::vector<std::vector<double>> histories;
+        histories.resize(numberOfPaths);
+        std::vector<std::future<std::pair<std::vector<double>,std::vector<double>>>> futures;
+        futures.reserve(numberOfPaths/2);
+
+        for (unsigned i = 0; i < numberOfPaths/2; ++i) {
+            futures.push_back(
+            std::async(std::launch::async, exactGBM::simulateAntitheticVariatePaths,
+            startingPrice, drift, volatility,
+            intervalLength, numberOfSubIntervals, seeds[i]));
+        }
+
+        std::vector<std::vector<double>> output;
+        output.reserve(numberOfPaths);
+
+        for (unsigned i = 0; i < numberOfPaths; i +=2 ) {
+             auto [fst, snd] = futures[i/2].get();
+            output.push_back(fst);
+            output.push_back(snd);
+        }
+        return output;
+    }
+
+    std::vector<double> getTerminalPrices(unsigned int numberOfPaths, const double startingPrice, const double drift,
+        const double volatility, const double intervalLength) {
+
+        if (numberOfPaths%2==1) numberOfPaths--; //Confiscate the extra path if someone has the gall to call this function with an odd number of paths
+        auto seeds = generateSeeds(numberOfPaths/2);
+
+        std::vector<std::future<std::pair<double,double>>> futures;
+        futures.reserve(numberOfPaths/2);
+
+        for (unsigned i = 0; i<numberOfPaths/2; ++i) {
+            futures.push_back(std::async(std::launch::async, exactGBM::analyticalTerminalAntitheticPrices, startingPrice, drift, volatility, intervalLength, seeds[i]));
+        }
+
+        std::vector<double> output;
+        output.reserve(numberOfPaths);
+
+        for (unsigned i = 0; i<numberOfPaths; i+=2) {
+            auto [fst, snd] = futures[i/2].get();
+            output.push_back(fst);
+            output.push_back(snd);
+        }
+        return output;
     }
 }
 
