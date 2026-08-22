@@ -7,6 +7,9 @@
 
 #include "util.hpp"
 
+
+//These functions have been kept for historical purposes, but are not used, due to them being both less efficient, and
+//less accurate than the exactGBM versions.
 namespace eulerMaruyama {
     std::pair<double,double> simulateAntitheticVariatePaths(const double startingPrice, const double riskFreeRate,
         const double volatility, const double intervalLength, const int numberOfSubIntervals, const unsigned seed,
@@ -21,7 +24,7 @@ namespace eulerMaruyama {
         }
 
         std::mt19937 randomNumberGenerator(seed);
-        std::normal_distribution<double> zDist(0,1);
+        std::normal_distribution<> zDist(0,1);
 
         double Y1 = startingPrice;
         double Y2 = startingPrice;

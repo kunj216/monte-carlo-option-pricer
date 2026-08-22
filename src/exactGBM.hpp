@@ -16,8 +16,8 @@ namespace exactGBM {
         unsigned numberOfSubintervals, unsigned seed);
 
     std::vector<std::vector<double>> getPriceHistories(unsigned int numberOfPaths, double startingPrice, double riskFreeRate,
-                                                       double volatility, double intervalLength, int numberOfSubIntervals);
-
+            double volatility, double intervalLength, unsigned numberOfSubIntervals);
+    
     std::vector<double> getTerminalPrices(unsigned int numberOfPaths, double startingPrice, double riskFreeRate,
                                           double volatility, double intervalLength);
 }

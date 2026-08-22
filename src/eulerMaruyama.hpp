@@ -2,6 +2,10 @@
 // Created by ruairi on 21/08/2026.
 //
 
+
+//These functions have been kept for historical purposes, but are not used, due to them being both less efficient, and
+//less accurate than the exactGBM versions.
+
 #ifndef WIENERSIMULATION_EULERMARYAMA_HPP
 #define WIENERSIMULATION_EULERMARYAMA_HPP
 #include <vector>

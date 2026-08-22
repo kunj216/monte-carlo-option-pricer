@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 paths = []
-with open("/tmp/path.csv") as f:
+with open("/tmp/WienerSimulationPaths.csv") as f:
     for line in f:
         line = line.strip()
         if not line:
