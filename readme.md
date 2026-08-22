@@ -7,7 +7,8 @@ It prices both European call and put options, and validates its results against 
  - Simulates n possible future stock prices under GBM
  - Prices the European call and put options by averaging discounted payoffs across all simulated paths
  - It then compares the results against the Black-Scholes closed-form formula, and gives relative error
- - Is able to plot simulated stock price paths to establish visual correctnes
+ - Is able to plot simulated stock price paths to establish visual correctness
+ - Parallelises simulation across hardware threads using std::thread::hardware_concurrency(), chunking paths across cores rather than spawning one thread per path
 
 ## Usage
 To build, run, and plot, you can use the provided script:
