@@ -40,7 +40,7 @@ Relative error: 0.268669%
 | `--paths` | Number of Monte Carlo paths | 1000 |
 
 
-## Why is Euler-Maryama code in here?
+## Why is Euler-Maruyama code in here?
 
 The Euler-Maruyama discretisation implementation is kept as it was my original implementation, before transitioning to using a closed-form solution. 
 As GBM is one of the few SDEs with a closed-form solution, the pricer is able to use exact sampling. 
