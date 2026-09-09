@@ -1,4 +1,4 @@
-# Wiener Simulation
+# Monte Carlo Option Pricer
 
 A monte Carlo option pricer written in C++, using the exact Geometric Brownian Motion equations and antithetic variates for variance reduciton.
 It prices both European call and put options, and validates its results against the solution obtained through the Black-Scholes equations.
