@@ -2,8 +2,8 @@
 // Created by ruairi on 20/08/2026.
 //
 
-#ifndef WIENERSIMULATION_GBM_HPP
-#define WIENERSIMULATION_GBM_HPP
+#ifndef GBM_HPP
+#define GBM_HPP
 #include <utility>
 #include <vector>
 namespace exactGBM {
@@ -22,4 +22,4 @@ namespace exactGBM {
                                           double volatility, double intervalLength);
 }
 
-#endif //WIENERSIMULATION_GBM_HPP
+#endif //GBM_HPP

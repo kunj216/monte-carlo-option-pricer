@@ -2,8 +2,8 @@
 // Created by ruairi on 21/08/2026.
 //
 
-#ifndef WIENERSIMULATION_UTIL_HPP
-#define WIENERSIMULATION_UTIL_HPP
+#ifndef UTIL_HPP
+#define UTIL_HPP
 #include <cmath>
 #include <random>
 #include <vector>
@@ -22,4 +22,4 @@ inline double zDistCDF(const double x) {
     constexpr double SQRT_HALF = 0.70710678118654752440;
     return 0.5 * std::erfc(-x * SQRT_HALF);
 }
-#endif //WIENERSIMULATION_UTIL_HPP
+#endif //UTIL_HPP

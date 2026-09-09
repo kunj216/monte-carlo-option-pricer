@@ -2,8 +2,8 @@
 // Created by ruairi on 21/08/2026.
 //
 
-#ifndef WIENERSIMULATION_PRICER_HPP
-#define WIENERSIMULATION_PRICER_HPP
+#ifndef PRICER_HPP
+#define PRICER_HPP
 #include <utility>
 
 
@@ -22,4 +22,4 @@
  std::pair<double,double> monteCarloBoth(double currentPrice, double strikePrice, double riskFreeInterestRate,
                                double volatility, double timeToExercise, unsigned numberOfPaths);
 
-#endif //WIENERSIMULATION_PRICER_HPP
+#endif //PRICER_HPP

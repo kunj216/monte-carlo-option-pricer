@@ -6,8 +6,8 @@
 //These functions have been kept for historical purposes, but are not used, due to them being both less efficient, and
 //less accurate than the exactGBM versions.
 
-#ifndef WIENERSIMULATION_EULERMARYAMA_HPP
-#define WIENERSIMULATION_EULERMARYAMA_HPP
+#ifndef EULERMARYAMA_HPP
+#define EULERMARYAMA_HPP
 #include <vector>
 
 namespace eulerMaruyama {
@@ -21,4 +21,4 @@ namespace eulerMaruyama {
 }
 
 
-#endif //WIENERSIMULATION_EULERMARYAMA_HPP
+#endif //EULERMARYAMA_HPP

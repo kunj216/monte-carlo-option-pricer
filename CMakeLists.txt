@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 4.3)
-project(WienerSimulation)
+project(MonteCarloOptionPricer)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(WienerSimulation src/main.cpp
+add_executable(MonteCarloOptionPricer src/main.cpp
         src/exactGBM.hpp
         src/exactGBM.cpp
         src/util.hpp
